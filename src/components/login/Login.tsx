@@ -1,31 +1,48 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import AuthService from "../../service/auth/auth";
 import { Providers } from "../../service/auth/authType";
+import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 
 type LoginProps = {
   authService: AuthService;
 };
 
-const handleLogout = () => {
-  console.log("logout");
-};
-
 const Login = ({ authService }: LoginProps) => {
+  const navigate = useNavigate();
+
+  const goToMaker = (userId: string) => {
+    navigate("/maker", {
+      state: {
+        id: userId,
+      },
+    });
+  };
   const onLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
     const targetButtonName = event.currentTarget.textContent;
-    if (targetButtonName) {
+    if (targetButtonName !== null) {
+      const buttonName = targetButtonName;
       authService //
-        .login(targetButtonName as Providers)
-        ?.then();
+        .login(buttonName as Providers)
+        .then((data) => {
+          if (data) {
+            goToMaker(data.user.uid);
+          }
+        });
     }
   };
 
+  useEffect(() => {
+    authService.onAuthChange((user) => {
+      user && goToMaker(user.uid);
+    });
+  });
+
   return (
     <section className={styles.login}>
-      <Header onLogout={handleLogout} />
+      <Header />
       <section>
         <h1>Login</h1>
         <ul className={styles.list}>

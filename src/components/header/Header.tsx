@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Header.module.css";
 
 type HeaderProps = {
-  onLogout: () => void;
+  onLogout?: () => void;
 };
 
 const Header = ({ onLogout }: HeaderProps) => {
