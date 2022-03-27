@@ -1,5 +1,5 @@
 import React from "react";
-import "./app.css";
+import styles from "./app.module.css";
 import Login from "./components/login/Login";
 import AuthService from "./service/auth/auth";
 
@@ -8,7 +8,11 @@ type AppProps = {
 };
 
 function App({ authService }: AppProps) {
-  return <Login authService={authService} />;
+  return (
+    <div className={styles.app}>
+      <Login authService={authService} />
+    </div>
+  );
 }
 
 export default App;

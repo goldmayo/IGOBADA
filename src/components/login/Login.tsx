@@ -3,9 +3,14 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import AuthService from "../../service/auth/auth";
 import { Providers } from "../../service/auth/authType";
+import styles from "./Login.module.css";
 
 type LoginProps = {
   authService: AuthService;
+};
+
+const handleLogout = () => {
+  console.log("logout");
 };
 
 const Login = ({ authService }: LoginProps) => {
@@ -19,16 +24,20 @@ const Login = ({ authService }: LoginProps) => {
   };
 
   return (
-    <section>
-      <Header />
+    <section className={styles.login}>
+      <Header onLogout={handleLogout} />
       <section>
         <h1>Login</h1>
-        <ul>
-          <li>
-            <button onClick={onLogin}>Google</button>
+        <ul className={styles.list}>
+          <li className={styles.item}>
+            <button className={styles.button} onClick={onLogin}>
+              Google
+            </button>
           </li>
-          <li>
-            <button onClick={onLogin}>Github</button>
+          <li className={styles.item}>
+            <button className={styles.button} onClick={onLogin}>
+              Github
+            </button>
           </li>
         </ul>
       </section>

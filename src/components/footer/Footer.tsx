@@ -1,7 +1,12 @@
 import React from "react";
+import styles from "./Footer.module.css";
 
 const Footer = () => {
-  return <h1>Footer</h1>;
+  return (
+    <footer className={styles.footer}>
+      <p className={styles.title}>BCM app</p>
+    </footer>
+  );
 };
 
 export default Footer;
