@@ -3,7 +3,7 @@ import styles from "./Button.module.css";
 
 type ButtonProps = {
   name: string;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const Button = ({ name, onClick }: ButtonProps) => {

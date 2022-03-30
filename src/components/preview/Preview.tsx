@@ -13,7 +13,7 @@ const Preview = ({ cards }: PreviewProps) => {
       <h1 className={styles.title}>Card Preview</h1>
       <ul className={styles.cards}>
         {cards.map((card) => (
-          <Card card={card} />
+          <Card key={card.id} card={card} />
         ))}
       </ul>
     </section>
