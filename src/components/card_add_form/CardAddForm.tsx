@@ -1,15 +1,26 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./CardAddForm.module.css";
 import Button from "../button/Button";
 import ImageFileInput from "../image_file_input/ImageFileInput";
 import { CardInfo } from "../maker/MakerTypes";
 import { v4 as uuidv4 } from "uuid";
+import AssetUploader from "../../service/asset_uploader/AssetUploader";
 
 interface ICardAddForm {
   onAdd: (newCard: CardInfo) => void;
+  imageUploader: AssetUploader;
 }
 
-const CardAddForm = ({ onAdd }: ICardAddForm) => {
+type File = {
+  fileName: string;
+  fileURL: string;
+};
+
+const CardAddForm = ({ onAdd, imageUploader }: ICardAddForm) => {
+  const [file, setFile] = useState<File>({
+    fileName: "",
+    fileURL: "",
+  });
   const formRef = useRef<HTMLFormElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const compannyRef = useRef<HTMLInputElement>(null);
@@ -17,6 +28,13 @@ const CardAddForm = ({ onAdd }: ICardAddForm) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleFileChange = (file: { name: string; url: string }) => {
+    setFile({
+      fileName: file.name,
+      fileURL: file.url,
+    });
+  };
 
   const onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -29,10 +47,11 @@ const CardAddForm = ({ onAdd }: ICardAddForm) => {
       title: titleRef.current?.value || "",
       email: emailRef.current?.value || "",
       message: messageRef.current?.value || "",
-      fileName: "",
-      fileURL: "",
+      fileName: file.fileName || "",
+      fileURL: file.fileURL || "",
     };
     formRef.current?.reset();
+    setFile({ fileName: "", fileURL: "" });
     onAdd(newCard);
   };
 
@@ -56,7 +75,7 @@ const CardAddForm = ({ onAdd }: ICardAddForm) => {
       <input ref={emailRef} className={styles.input} type="text" name="email" placeholder="Email" autoComplete="off" />
       <textarea ref={messageRef} className={styles.textarea} name="message" placeholder="Message" />
       <div className={styles.fileInput}>
-        <ImageFileInput />
+        <ImageFileInput imageUploader={imageUploader} name={file.fileName} onFileChange={handleFileChange} />
       </div>
       <Button name="Add" onClick={onSubmit} />
     </form>

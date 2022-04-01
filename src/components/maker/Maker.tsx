@@ -7,15 +7,19 @@ import { useNavigate } from "react-router-dom";
 import Editor from "../editor/Editor";
 import Preview from "../preview/Preview";
 import { CardInfo } from "./MakerTypes";
+import CardAddForm from "../card_add_form/CardAddForm";
+import CardEditForm from "../card_edit_form/CardEditForm";
+import AssetUploader from "../../service/asset_uploader/AssetUploader";
 
 type MakerProps = {
   authService: AuthService;
+  assetUploader: AssetUploader;
 };
 export type Deck = {
   //https://radlohead.gitbook.io/typescript-deep-dive/type-system/index-signatures
   [index: string]: CardInfo;
 };
-const Maker = ({ authService }: MakerProps) => {
+const Maker = ({ authService, assetUploader }: MakerProps) => {
   const [cards, setCards] = useState<Deck>({
     "1": {
       id: "1",
@@ -25,7 +29,7 @@ const Maker = ({ authService }: MakerProps) => {
       title: "SW Engineer",
       email: "hsj1596@gmail.com",
       message: "control your id",
-      fileName: "hyun",
+      fileName: "hyun1",
       fileURL: null,
     },
     "2": {
@@ -36,7 +40,7 @@ const Maker = ({ authService }: MakerProps) => {
       title: "SW Engineer",
       email: "hsj1596@gmail.com",
       message: "control your id",
-      fileName: "hyun",
+      fileName: "hyun2",
       fileURL: null,
     },
     "3": {
@@ -47,7 +51,7 @@ const Maker = ({ authService }: MakerProps) => {
       title: "SW Engineer",
       email: "hsj1596@gmail.com",
       message: "control your id",
-      fileName: "hyun",
+      fileName: "hyun3",
       fileURL: "ss",
     },
   });
@@ -73,6 +77,7 @@ const Maker = ({ authService }: MakerProps) => {
       return updatedDeck;
     });
   };
+
   const deleteCard = (card: CardInfo) => {
     setCards((cards) => {
       const updatedDeck = { ...cards };
@@ -84,7 +89,27 @@ const Maker = ({ authService }: MakerProps) => {
     <section className={styles.maker}>
       <Header onLogout={onLogout} />
       <div className={styles.container}>
-        <Editor cards={cards} addCard={createUpdateCard} updateCard={createUpdateCard} deleteCard={deleteCard} />
+        {/* <Editor
+          cards={cards}
+          assetUploader={assetUploader}
+          addCard={createUpdateCard}
+          updateCard={createUpdateCard}
+          deleteCard={deleteCard}
+        /> */}
+        {/*  */}
+        <Editor>
+          {Object.keys(cards).map((key) => (
+            <CardEditForm
+              key={key}
+              imageUploader={assetUploader}
+              card={cards[key]}
+              updateCard={createUpdateCard}
+              deleteCard={deleteCard}
+            />
+          ))}
+          <CardAddForm imageUploader={assetUploader} onAdd={createUpdateCard} />
+        </Editor>
+        {/*  */}
         <Preview cards={cards} />
       </div>
       <Footer />
