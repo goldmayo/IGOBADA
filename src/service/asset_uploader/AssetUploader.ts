@@ -7,16 +7,17 @@ interface File extends Blob {
 
 class AssetUploader {
   upload = async (file: File) => {
-    const url = "https://api.cloudinary.com/v1_1/demo/image/upload";
+    const url = `${process.env.REACT_APP_CLOUDNARY_BASE_URL}`;
     const formData = new FormData();
+    console.log(url);
 
     formData.append("file", file);
-    formData.append("upload_preset", "docs_upload_example_us_preset");
-
+    formData.append("upload_preset", "k5usewfx");
     const result = await fetch(url, {
       method: "POST",
       body: formData,
     });
+
     return result.json();
   };
 }
