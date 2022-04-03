@@ -1,6 +1,7 @@
 import { GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
 import AuthService from "../auth/auth";
 import AssetUploader from "../asset_uploader/AssetUploader";
+import CardRepository from "../card_repository/cardRepository";
 
 class Factory {
   static createProviders = () => {
@@ -13,6 +14,10 @@ class Factory {
 
   static createAssetUploader = () => {
     return new AssetUploader();
+  };
+
+  static createCardRepository = () => {
+    return new CardRepository();
   };
 }
 export default Factory;

@@ -9,15 +9,17 @@ import styles from "./Login.module.css";
 type LoginProps = {
   authService: AuthService;
 };
+export interface IUserId {
+  id: string;
+}
 
 const Login = ({ authService }: LoginProps) => {
   const navigate = useNavigate();
 
   const goToMaker = (userId: string) => {
+    const UID: IUserId = { id: userId };
     navigate("/maker", {
-      state: {
-        id: userId,
-      },
+      state: UID,
     });
   };
   const onLogin = (event: React.MouseEvent<HTMLButtonElement>) => {

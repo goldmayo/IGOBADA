@@ -3,60 +3,33 @@ import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import AuthService from "../../service/auth/auth";
 import styles from "./Maker.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Editor from "../editor/Editor";
 import Preview from "../preview/Preview";
 import { CardInfo } from "./MakerTypes";
 import CardAddForm from "../card_add_form/CardAddForm";
 import CardEditForm from "../card_edit_form/CardEditForm";
 import AssetUploader from "../../service/asset_uploader/AssetUploader";
+import { IUserId } from "../login/Login";
+import CardRepository from "../../service/card_repository/cardRepository";
 
 type MakerProps = {
   authService: AuthService;
   assetUploader: AssetUploader;
+  cardRepository: CardRepository;
 };
+
 export type Deck = {
   //https://radlohead.gitbook.io/typescript-deep-dive/type-system/index-signatures
   [index: string]: CardInfo;
 };
-const Maker = ({ authService, assetUploader }: MakerProps) => {
-  const [cards, setCards] = useState<Deck>({
-    "1": {
-      id: "1",
-      name: "Hyun",
-      companny: "Google",
-      theme: "light",
-      title: "SW Engineer",
-      email: "hsj1596@gmail.com",
-      message: "control your id",
-      fileName: "hyun1",
-      fileURL: null,
-    },
-    "2": {
-      id: "2",
-      name: "Hyun",
-      companny: "MicroSoft",
-      theme: "dark",
-      title: "SW Engineer",
-      email: "hsj1596@gmail.com",
-      message: "control your id",
-      fileName: "hyun2",
-      fileURL: null,
-    },
-    "3": {
-      id: "3",
-      name: "Hyun",
-      companny: "Naver",
-      theme: "colorful",
-      title: "SW Engineer",
-      email: "hsj1596@gmail.com",
-      message: "control your id",
-      fileName: "hyun3",
-      fileURL: "ss",
-    },
-  });
 
+const Maker = ({ authService, assetUploader, cardRepository }: MakerProps) => {
+  const location = useLocation();
+  const locationState = location?.state as IUserId;
   const navigate = useNavigate();
+  const [userId, setUserId] = useState<string>(locationState && locationState?.id);
+  const [cards, setCards] = useState<Deck>({});
 
   const onLogout = () => {
     authService.logout();
@@ -64,7 +37,9 @@ const Maker = ({ authService, assetUploader }: MakerProps) => {
 
   useEffect(() => {
     authService.onAuthChange((user) => {
-      if (!user) {
+      if (user) {
+        setUserId(user.uid);
+      } else {
         navigate("/");
       }
     });
@@ -76,6 +51,7 @@ const Maker = ({ authService, assetUploader }: MakerProps) => {
       updatedDeck[card.id] = card;
       return updatedDeck;
     });
+    cardRepository.saveCard(userId, card);
   };
 
   const deleteCard = (card: CardInfo) => {
@@ -84,7 +60,9 @@ const Maker = ({ authService, assetUploader }: MakerProps) => {
       delete updatedDeck[card.id];
       return updatedDeck;
     });
+    cardRepository.removeCard(userId, card);
   };
+
   return (
     <section className={styles.maker}>
       <Header onLogout={onLogout} />

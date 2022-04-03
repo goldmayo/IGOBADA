@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.module.css";
 import App from "./app";
 import Factory from "./service/factory/factory";
-import ImageFileInput from "./components/image_file_input/ImageFileInput";
+// import ImageFileInput from "./components/image_file_input/ImageFileInput";
 const authService = Factory.createProviders();
 const assetUploader = Factory.createAssetUploader();
+const cardRepository = Factory.createCardRepository();
 /**
  * DI component : container 파일을 생성하고 index에서 주입하면 가?능 할지도?
  *
@@ -20,7 +21,7 @@ const assetUploader = Factory.createAssetUploader();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App authService={authService} assetUploader={assetUploader} />
+    <App authService={authService} assetUploader={assetUploader} cardRepository={cardRepository} />
   </React.StrictMode>,
   document.getElementById("root")
 );
