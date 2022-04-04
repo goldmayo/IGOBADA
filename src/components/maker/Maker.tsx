@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
-import Footer from "../footer/Footer";
-import Header from "../header/Header";
-import AuthService from "../../service/auth/auth";
-import styles from "./Maker.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
+
+import AuthService from "../../service/auth/auth";
+import AssetUploader from "../../service/asset_uploader/AssetUploader";
+import CardRepository from "../../service/card_repository/cardRepository";
+
+import Header from "../header/Header";
 import Editor from "../editor/Editor";
 import Preview from "../preview/Preview";
-import { CardInfo } from "./MakerTypes";
 import CardAddForm from "../card_add_form/CardAddForm";
 import CardEditForm from "../card_edit_form/CardEditForm";
-import AssetUploader from "../../service/asset_uploader/AssetUploader";
+import Footer from "../footer/Footer";
+
 import { IUserId } from "../login/Login";
-import CardRepository from "../../service/card_repository/cardRepository";
+import { CardInfo, Deck } from "./MakerTypes";
+
+import styles from "./Maker.module.css";
 
 type MakerProps = {
   authService: AuthService;
   assetUploader: AssetUploader;
   cardRepository: CardRepository;
-};
-
-export type Deck = {
-  //https://radlohead.gitbook.io/typescript-deep-dive/type-system/index-signatures
-  [index: string]: CardInfo;
 };
 
 const Maker = ({ authService, assetUploader, cardRepository }: MakerProps) => {
@@ -34,6 +33,17 @@ const Maker = ({ authService, assetUploader, cardRepository }: MakerProps) => {
   const onLogout = () => {
     authService.logout();
   };
+
+  useEffect(() => {
+    if (!userId) {
+      return;
+    }
+    const stopSync = cardRepository.syncCards(userId, (cards: Deck) => {
+      setCards(cards);
+    });
+
+    return () => stopSync();
+  }, [userId, cardRepository]);
 
   useEffect(() => {
     authService.onAuthChange((user) => {
@@ -67,14 +77,6 @@ const Maker = ({ authService, assetUploader, cardRepository }: MakerProps) => {
     <section className={styles.maker}>
       <Header onLogout={onLogout} />
       <div className={styles.container}>
-        {/* <Editor
-          cards={cards}
-          assetUploader={assetUploader}
-          addCard={createUpdateCard}
-          updateCard={createUpdateCard}
-          deleteCard={deleteCard}
-        /> */}
-        {/*  */}
         <Editor>
           {Object.keys(cards).map((key) => (
             <CardEditForm
@@ -87,7 +89,6 @@ const Maker = ({ authService, assetUploader, cardRepository }: MakerProps) => {
           ))}
           <CardAddForm imageUploader={assetUploader} onAdd={createUpdateCard} />
         </Editor>
-        {/*  */}
         <Preview cards={cards} />
       </div>
       <Footer />

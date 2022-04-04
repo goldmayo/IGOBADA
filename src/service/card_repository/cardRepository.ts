@@ -1,6 +1,6 @@
 import { database } from "../firebase";
-import { Database, getDatabase, onValue, ref, set, remove } from "firebase/database";
-import { CardInfo } from "../../components/maker/MakerTypes";
+import { Database, onValue, ref, set, remove, off } from "firebase/database";
+import { CardInfo, Deck } from "../../components/maker/MakerTypes";
 
 class CardRepository {
   db: Database;
@@ -8,7 +8,14 @@ class CardRepository {
   constructor() {
     this.db = database;
   }
-
+  syncCards = (userId: string, onUpdate: (cards: Deck) => void) => {
+    const query = ref(this.db, `${userId}/cards`);
+    onValue(query, (snapshot) => {
+      const value = snapshot.val();
+      value && onUpdate(value);
+    });
+    return () => off(query);
+  };
   saveCard = (userId: string, card: CardInfo) => {
     set(ref(this.db, `${userId}/cards/${card.id}`), card);
   };
