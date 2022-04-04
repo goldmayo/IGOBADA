@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import AuthService from "../../service/auth/auth";
@@ -30,9 +30,9 @@ const Maker = ({ authService, assetUploader, cardRepository }: MakerProps) => {
   const [userId, setUserId] = useState<string>(locationState && locationState?.id);
   const [cards, setCards] = useState<Deck>({});
 
-  const onLogout = () => {
+  const onLogout = useCallback(() => {
     authService.logout();
-  };
+  }, [authService]);
 
   useEffect(() => {
     if (!userId) {
@@ -42,7 +42,9 @@ const Maker = ({ authService, assetUploader, cardRepository }: MakerProps) => {
       setCards(cards);
     });
 
-    return () => stopSync();
+    return () => {
+      stopSync();
+    };
   }, [userId, cardRepository]);
 
   useEffect(() => {
@@ -53,25 +55,31 @@ const Maker = ({ authService, assetUploader, cardRepository }: MakerProps) => {
         navigate("/");
       }
     });
-  });
+  }, [authService, navigate]);
 
-  const createUpdateCard = (card: CardInfo) => {
-    setCards((cards) => {
-      const updatedDeck = { ...cards };
-      updatedDeck[card.id] = card;
-      return updatedDeck;
-    });
-    cardRepository.saveCard(userId, card);
-  };
+  const createUpdateCard = useCallback(
+    (card: CardInfo) => {
+      setCards((cards) => {
+        const updatedDeck = { ...cards };
+        updatedDeck[card.id] = card;
+        return updatedDeck;
+      });
+      cardRepository.saveCard(userId, card);
+    },
+    [cardRepository, userId]
+  );
 
-  const deleteCard = (card: CardInfo) => {
-    setCards((cards) => {
-      const updatedDeck = { ...cards };
-      delete updatedDeck[card.id];
-      return updatedDeck;
-    });
-    cardRepository.removeCard(userId, card);
-  };
+  const deleteCard = useCallback(
+    (card: CardInfo) => {
+      setCards((cards) => {
+        const updatedDeck = { ...cards };
+        delete updatedDeck[card.id];
+        return updatedDeck;
+      });
+      cardRepository.removeCard(userId, card);
+    },
+    [cardRepository, userId]
+  );
 
   return (
     <section className={styles.maker}>

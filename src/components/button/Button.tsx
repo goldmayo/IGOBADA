@@ -6,6 +6,12 @@ type ButtonProps = {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
+const areEqual = (prevProps: ButtonProps, nextProps: ButtonProps) => {
+  const prevEntries = Object.entries(prevProps).toString();
+  const nextEntries = Object.entries(nextProps).toString();
+  return prevEntries === nextEntries;
+};
+
 const Button = ({ name, onClick }: ButtonProps) => {
   return (
     <button className={styles.button} onClick={onClick}>
@@ -14,4 +20,4 @@ const Button = ({ name, onClick }: ButtonProps) => {
   );
 };
 
-export default Button;
+export default React.memo(Button, areEqual);

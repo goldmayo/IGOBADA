@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import styles from "./CardEditForm.module.css";
 import { CardInfo } from "../maker/MakerTypes";
 import Button from "../button/Button";
@@ -23,17 +23,20 @@ const CardEditForm = ({ card, imageUploader, updateCard, deleteCard }: CardEditF
   const emailRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleFileChange = (file: { name: string; url: string }) => {
-    updateCard({
-      ...card,
-      fileName: file.name,
-      fileURL: file.url,
-    });
-  };
+  const handleFileChange = useCallback(
+    (file: { name: string; url: string }) => {
+      updateCard({
+        ...card,
+        fileName: file.name,
+        fileURL: file.url,
+      });
+    },
+    [card, updateCard]
+  );
 
-  const onDelete = () => {
+  const onDelete = useCallback(() => {
     deleteCard(card);
-  };
+  }, [card, deleteCard]);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     if (event.currentTarget == null) return;

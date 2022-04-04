@@ -19,6 +19,13 @@ const getTheme = (theme: string) => {
       throw new Error(`unknown theme: ${theme}`);
   }
 };
+
+const areEqual = (prevProps: CardProps, nextProps: CardProps) => {
+  const prevEntries = Object.entries(prevProps.card).toString();
+  const nextEntries = Object.entries(nextProps.card).toString();
+  return prevEntries === nextEntries;
+};
+
 const Card = ({ card }: CardProps) => {
   const { name, companny, theme, title, email, message, fileURL } = card;
   const imgURL = fileURL || DEFAULT_IMG_URL;
@@ -36,4 +43,4 @@ const Card = ({ card }: CardProps) => {
   );
 };
 
-export default Card;
+export default React.memo(Card, areEqual);

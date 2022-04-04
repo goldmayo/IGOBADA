@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import styles from "./ImageFileInput.module.css";
 import AssetUploader from "../../service/asset_uploader/AssetUploader";
 
@@ -7,6 +7,12 @@ interface ImageFileInputProps {
   name: string;
   onFileChange: (file: { name: string; url: string }) => void;
 }
+
+const areEqual = (prevProps: ImageFileInputProps, nextProps: ImageFileInputProps) => {
+  const prevEntries = Object.entries(prevProps).toString();
+  const nextEntries = Object.entries(nextProps).toString();
+  return prevEntries === nextEntries;
+};
 
 const ImageFileInput = ({ imageUploader, name, onFileChange }: ImageFileInputProps) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,10 +27,12 @@ const ImageFileInput = ({ imageUploader, name, onFileChange }: ImageFileInputPro
       onFileChange({ name: uploaded.original_filename, url: uploaded.url });
     }
   };
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+
+  const handleButtonClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     inputRef.current?.click();
-  };
+  }, []);
+
   return (
     <div className={styles.container}>
       <input ref={inputRef} className={styles.input} type="file" accept="image/*" name="file" onChange={handleChange} />
@@ -39,4 +47,4 @@ const ImageFileInput = ({ imageUploader, name, onFileChange }: ImageFileInputPro
   );
 };
 
-export default ImageFileInput;
+export default React.memo(ImageFileInput, areEqual);

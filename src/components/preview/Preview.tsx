@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Preview.module.css";
-import { CardInfo, Deck } from "../maker/MakerTypes";
+import { Deck } from "../maker/MakerTypes";
 import Card from "../card/Card";
 
 type PreviewProps = {
