@@ -40,7 +40,7 @@ const ImageFileInput = ({ imageUploader, name, onFileChange }: ImageFileInputPro
         <div className={styles.loading}></div>
       ) : (
         <button className={`${styles.button} ${name ? styles.pink : styles.grey}`} onClick={handleButtonClick}>
-          {name || "No file"}
+          {name || "프로필 업로드"}
         </button>
       )}
     </div>

@@ -1,0 +1,5 @@
+.greeting {
+  width: 100%;
+  text-align: center;
+  font-size: clamp(0.8rem, 0.75vw, 1.2rem);
+}

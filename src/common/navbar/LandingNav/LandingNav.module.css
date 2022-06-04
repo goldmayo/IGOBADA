@@ -1,0 +1,8 @@
+.navbar {
+  display: flex;
+}
+.navbar a {
+  font-size: 1.1rem;
+  color: #fff;
+  text-decoration: none;
+}

@@ -1,0 +1,129 @@
+@value makerGreen, makerLightPink, makerWhite from '../../../colors.css';
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* width: 100%; */
+  width: max(388px, 100%);
+  text-align: center;
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+.logo_container {
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  width: 350px;
+}
+
+.console {
+  display: flex;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.input label {
+  align-self: flex-start;
+  padding: 0 0.5rem;
+}
+
+.loginButton {
+  align-self: flex-start;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 10px;
+  width: 90%;
+  /* height: 2rem; */
+  line-height: 1.5;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #609ae9;
+  color: white;
+}
+
+.loginButton:hover {
+  background-color: #00a1ff;
+}
+
+.boundary_container {
+  position: relative;
+  margin: 20px 0;
+}
+
+.boudary_line {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  width: 90%;
+  height: 1px;
+  background-color: #ced0da;
+  z-index: 0;
+}
+
+.boundary_message {
+  position: relative;
+  width: 54px;
+  text-align: center;
+  margin: auto;
+  background-color: #f5f5f5;
+  color: #90929e;
+  z-index: 1;
+}
+
+.social_login_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.social_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  border: 1px solid #ced0da;
+  margin: 0 auto;
+  margin-bottom: 0.8rem;
+  outline: 0;
+  cursor: pointer;
+}
+
+.social_button img {
+  margin-right: 10px;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+#google_login {
+  background-color: white;
+}
+
+#github_login {
+  color: white;
+  background-color: #221e1b;
+}
+
+#github_login img {
+  background-color: white;
+  width: 2rem;
+  height: 2rem;
+}
+
+.registLink a {
+  color: blue;
+  text-decoration: none;
+}

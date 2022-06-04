@@ -1,0 +1,30 @@
+@value makerBlack, makerWhite, makerGrey from "../../common/colors.css";
+
+.form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  max-width: 1200px;
+  justify-content: center;
+
+  margin-bottom: 0.8rem;
+}
+.fileInput {
+  padding: 0;
+  flex: 1 1 50%;
+}
+.button,
+.fileInput {
+  font-size: 0.8rem;
+  background-color: makerWhite;
+  border: 1px solid makerGrey;
+}
+.buttonGroup {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  flex-basis: 50%;
+  margin: auto;
+  margin-top: 0.8rem;
+  gap: 0.5em;
+}

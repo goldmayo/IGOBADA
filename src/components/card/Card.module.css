@@ -1,21 +1,31 @@
 @value makerShadow, makerBlack, makerWhite, makerColorful, makerWheat from "../../common/colors.css";
 
+button {
+  background-color: transparent;
+  border-style: none;
+}
+
 .card {
   display: flex;
   align-items: center;
-  width: 100%;
-  margin: 0.5em;
-  border-radius: 1em;
-  padding: 0.2em;
-  box-shadow: 6px 6px 8px 8px makerShadow;
+  width: 22rem;
+  height: 100%;
+  /* flex-basis: 40%; */
+  margin: 0.7em;
+  border-radius: 0.1rem;
+  padding: 1em 0;
+  box-shadow: 3px 4px 8px 0px makerShadow;
   max-width: 40rem;
+  position: relative;
 }
 
 .card.dark {
   background-color: makerBlack;
   color: makerWhite;
 }
-
+.card.dark > .menu {
+  color: makerWhite;
+}
 .card.light {
   background-color: makerWhite;
   color: makerBlack;
@@ -26,16 +36,28 @@
 }
 
 .avatar {
-  width: 10em;
-  height: 10em;
+  position: relative;
+  top: -1.5rem;
+  width: 5.5em;
+  height: 5.5em;
   padding: 1em;
-  margin-left: 0.5em;
-  margin-right: 1em;
+  /* margin-left: 0.5em; */
+  /* margin-right: 1em; */
   border-radius: 50%;
 }
 
 .info {
   width: 100%;
+  height: 100%;
+}
+.menu {
+  position: relative;
+  top: -3em;
+  padding: 0 0.5em;
+  font-size: 1.2em;
+}
+.menu:hover {
+  cursor: pointer;
 }
 
 .name,
@@ -43,6 +65,7 @@
 .theme,
 .title,
 .email,
+.phone,
 .message {
   margin: 0;
   font-size: 0.8rem;
@@ -52,11 +75,11 @@
 .name {
   font-size: 1.2rem;
 }
-.companny {
-  margin-bottom: 1em;
+.title {
+  margin-bottom: 2rem;
 }
 
-.companny::after {
+.title::after {
   content: "";
   display: block;
   width: 90%;

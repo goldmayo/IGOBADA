@@ -1,0 +1,45 @@
+.main_intro {
+  background-color: #fff;
+  word-break: keep-all;
+  padding-block: min(6rem, 5vh);
+}
+.intro_content {
+  max-width: 1280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.intro_description_box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 100px;
+}
+.intro_title {
+  font-size: clamp(1.6rem, 2vw, 2rem);
+}
+.intro_description {
+  margin: 0;
+  font-size: clamp(1.3rem, 1.4vw, 2rem);
+}
+.dummy_video {
+  width: 50%;
+  height: 400px;
+  background-color: black;
+  object-fit: contain;
+}
+
+@media screen and (max-width: 900px) {
+  .intro_content {
+    flex-direction: column;
+  }
+  .intro_description_box {
+    margin: 0 auto;
+    margin-bottom: 30px;
+  }
+  .dummy_video {
+    width: 100%;
+  }
+}

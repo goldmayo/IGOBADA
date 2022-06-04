@@ -1,0 +1,16 @@
+.index_cards_group {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.index_cards {
+}
+
+.index {
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

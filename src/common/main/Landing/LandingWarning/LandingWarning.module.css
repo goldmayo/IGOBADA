@@ -1,0 +1,36 @@
+.main_warning {
+  /* height: 600px; */
+  word-break: keep-all;
+  background-color: #f6f6f6;
+  padding-block: min(6rem, 5vh);
+}
+
+.warning_content {
+  max-width: 1280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.warning_sign {
+  width: 50%;
+  height: 400px;
+}
+
+.warning_description_box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 15%;
+}
+
+.warning_title {
+  font-size: clamp(1.6rem, 2vw, 2.3rem);
+}
+
+.warning_description {
+  margin: 0;
+  font-size: clamp(1.3rem, 1.4vw, 1.5rem);
+}

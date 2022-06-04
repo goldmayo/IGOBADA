@@ -1,0 +1,38 @@
+@value makerGreen, makerWhite,makerBlack from '../../../common/colors.css';
+
+.header {
+  width: 100%;
+  height: 10vh;
+  line-height: 10vh;
+  /* font-size: 5vh; */
+  text-align: center;
+  padding: 0.5em;
+  background-color: makerGreen;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  margin-left: 2%;
+  color: makerWhite;
+  font-size: 5vh;
+}
+
+.logout {
+  padding: 0.8em;
+  border-radius: 10%;
+  background-color: makerBlack;
+  color: makerWhite;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  font-size: clamp(0.9rem, 0.5vw, 1.25rem);
+  margin-right: 0.5em;
+}
+
+.header img {
+  margin-left: 24px;
+  max-width: min(124px, 15vw);
+}

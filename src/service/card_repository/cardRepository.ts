@@ -1,6 +1,6 @@
 import { database } from "../firebase";
 import { Database, onValue, ref, set, remove, off } from "firebase/database";
-import { CardInfo, Deck } from "../../components/maker/MakerTypes";
+import { CardInfo, Deck } from "../../page/Main/MakerTypes.d";
 
 class CardRepository {
   db: Database;
@@ -17,6 +17,8 @@ class CardRepository {
     return () => off(query);
   };
   saveCard = (userId: string, card: CardInfo) => {
+    console.log("card", card);
+
     set(ref(this.db, `${userId}/cards/${card.id}`), card);
   };
 

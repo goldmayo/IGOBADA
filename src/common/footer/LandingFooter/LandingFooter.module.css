@@ -1,0 +1,34 @@
+.landing_footer {
+  margin-top: auto;
+  /* padding-block: min(6rem, 15px); */
+  padding: 20px;
+  /* background-color: #5f6368; */
+  /* background-color: #1e243d; */
+  background-color: #273155;
+}
+.footer_content {
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.logo_box {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 124px;
+  margin-right: 50px;
+}
+
+/* .copyright_box {
+  margin-top: 5px;
+} */
+
+.copyright {
+  color: #fff;
+  font-size: c;
+}

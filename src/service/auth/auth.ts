@@ -1,5 +1,12 @@
 import { authService } from "../firebase";
-import { signInWithPopup, User } from "firebase/auth";
+import {
+  signInWithPopup,
+  User,
+  updateProfile,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import { AuthProvider, Providers } from "./authType";
 
 class AuthService {
@@ -7,7 +14,9 @@ class AuthService {
   constructor(providers: AuthProvider) {
     this.providers = providers;
   }
-
+  getCurrentUser = () => {
+    return authService.currentUser;
+  };
   getProviderByName<T, K extends keyof T>(obj: T, key: K): T[K] {
     return obj[key];
   }
@@ -25,19 +34,33 @@ class AuthService {
     }
   };
 
+  logout = () => {
+    authService.signOut();
+  };
+
+  registerAccount = (email: string, password: string) => {
+    return createUserWithEmailAndPassword(authService, email, password);
+  };
+
+  loginEP = async (email: string, password: string) => {
+    return await signInWithEmailAndPassword(authService, email, password);
+  };
+  setDisplayName = (user: User, name: string) => {
+    return updateProfile(user, { displayName: name });
+  };
+  verifyEmail = async (user: User) => {
+    try {
+      console.log(user);
+      await sendEmailVerification(user);
+      console.log("done");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   onAuthChange = (onUserChanged: (user: User | null) => void) => {
     authService.onAuthStateChanged((user) => {
       onUserChanged(user);
-      // if (user) {
-      //   onUserChanged(user);
-      // } else {
-      //   onUserChanged(user);
-      // }
     });
-  };
-
-  logout = () => {
-    authService.signOut();
   };
 }
 

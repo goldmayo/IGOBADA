@@ -1,8 +1,11 @@
 @value makerGreen from '../../common/colors.css';
+@value mediaQuery from '../../common/size.css';
 
 .preview {
-  flex-basis: 50%;
-  padding: 0.5em 2em;
+  width: 85vw;
+  /* flex-basis: 50%; */
+  height: 100%;
+  /* padding: 0.5em 1em; */
   overflow-y: auto;
 }
 
@@ -15,9 +18,17 @@
 
 .cards {
   width: 100%;
-  padding: 0 1em;
+  padding: 0 2rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 0;
+  justify-content: space-around;
+}
+.totalCardCount {
+  padding-left: 2rem;
+}
+@media screen and (max-width: mediaQuery) {
+  .preview {
+    width: 100%;
+  }
 }

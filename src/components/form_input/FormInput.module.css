@@ -1,0 +1,47 @@
+@value makerBlack, makerWhite, makerGrey from "../../common/colors.css";
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 0.8em;
+}
+.label {
+  margin-right: 0.5em;
+  font-size: 0.9rem;
+  color: makerBlack;
+  margin-bottom: 0.3em;
+}
+.input {
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  background-color: makerWhite;
+  border: 1px solid #ced0da;
+  margin-bottom: 0.3em;
+}
+
+.input {
+  flex: 1 1 30%;
+}
+
+.input:focus {
+  outline: 0;
+}
+
+.errormessage {
+  font-size: 0.8rem;
+  color: red;
+  display: none;
+}
+input:invalid[data-focused="true"] {
+  border: 1px solid red;
+}
+
+input:invalid[data-focused="true"] ~ span {
+  display: block;
+}
+
+input:valid[data-focused="true"] {
+  border: 1px solid green;
+}

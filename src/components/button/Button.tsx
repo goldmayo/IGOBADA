@@ -3,7 +3,8 @@ import styles from "./Button.module.css";
 
 type ButtonProps = {
   name: string;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: "button" | "submit" | "reset" | undefined;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const areEqual = (prevProps: ButtonProps, nextProps: ButtonProps) => {
@@ -12,9 +13,9 @@ const areEqual = (prevProps: ButtonProps, nextProps: ButtonProps) => {
   return prevEntries === nextEntries;
 };
 
-const Button = ({ name, onClick }: ButtonProps) => {
+const Button = ({ name, type, onClick }: ButtonProps) => {
   return (
-    <button className={styles.button} onClick={onClick}>
+    <button className={styles.button} type={type} onClick={onClick}>
       {name}
     </button>
   );

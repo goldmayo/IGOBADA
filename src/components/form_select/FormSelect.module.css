@@ -1,0 +1,30 @@
+@value makerBlack, makerWhite, makerGrey from "../../common/colors.css";
+
+.selectGroup {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 0.8em;
+}
+.label {
+  font-size: 0.9rem;
+  color: makerBlack;
+  margin-bottom: 0.3em;
+  margin-right: 0.5em;
+}
+.select {
+  font-size: 0.8rem;
+  padding: 0.5em;
+  background-color: makerWhite;
+  border: 1px solid makerGrey;
+  color: makerGrey;
+}
+
+.select {
+  flex: 1 1 30%;
+}
+
+.select:focus {
+  outline: 0;
+}
