@@ -15,7 +15,7 @@ export class Modal extends Component<ModalPropsInterface> {
         {openFlag && (
           <>
             <div className={styles.bg} onClick={onClose}></div>
-            <section className={styles.container}>
+            <section className={styles.container}> 
               <header className={styles.header}>
                 {headerTextContent}
                 <button className={styles.closeButton} onClick={onClose}>

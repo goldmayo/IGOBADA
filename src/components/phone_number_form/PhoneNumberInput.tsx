@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styles from "./PhoneNumber.module.css";
+
 export interface PhoneNumberInputInterface {
   phoneRef: React.RefObject<HTMLInputElement>;
   defaultValue?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
 }
 
-const PhoneNumberInput = ({ phoneRef, defaultValue, onChange }: PhoneNumberInputInterface) => {
+const PhoneNumberInput = ({ phoneRef, defaultValue }: PhoneNumberInputInterface) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,14 +19,14 @@ const PhoneNumberInput = ({ phoneRef, defaultValue, onChange }: PhoneNumberInput
 
   return (
     <>
-      {onChange ? (
+      {defaultValue === undefined ? (
         <input
           ref={phoneRef}
           className={styles.input}
           type="text"
           name="phone number"
           defaultValue={defaultValue}
-          onChange={onChange}
+          onChange={handleInput}
         />
       ) : (
         <input
