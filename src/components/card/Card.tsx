@@ -43,8 +43,6 @@ const Card = ({ card, updateCard, deleteCard, imageUploader, phoneNumberFormatte
     setModalFlag(true);
   }, []);
   const closeModal = useCallback(() => {
-    console.log("card close modal");
-
     setModalFlag(false);
   }, []);
   return (

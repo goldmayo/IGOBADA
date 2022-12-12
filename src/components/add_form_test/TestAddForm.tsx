@@ -54,9 +54,8 @@ const TestAddForm: React.FC<TestAddFormInterface> = ({ onAdd, imageUploader, pho
   const handlePhoneNumberChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       event.preventDefault();
-      const regExp = /^01(?:0|1|[6-9]) - (?:\d{3}|\d{4}) - \d{4}$/;
+      // const regExp = /^01(?:0|1|[6-9]) - (?:\d{3}|\d{4}) - \d{4}$/;
       if (event.target !== null) {
-        console.log(`addForm regExp test :${regExp.test(phoneNumberFormatter(event.target.value))}`);
         setValues({ ...values, [event.target.name]: phoneNumberFormatter(event.target.value) });
         setPreviewCard({ ...previewCard, [event.target.name]: event.target.value });
       }

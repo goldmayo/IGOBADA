@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 const LandingNav = () => {
   return (
     <nav className={styles.navbar}>
-      <button className={styles.login_link_button}>
-        <Link to={"/login"}>로그인</Link>
-      </button>
+      <ul className={styles.nav_list}>
+        <li className={styles.nav_list_item}>
+          <Link to={"/login"}>로그인</Link>
+        </li>
+      </ul>
     </nav>
   );
 };

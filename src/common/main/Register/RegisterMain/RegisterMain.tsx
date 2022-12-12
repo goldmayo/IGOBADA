@@ -36,9 +36,7 @@ const RegisterMain: React.FC<RegisterMainInterface> = ({ authService }) => {
       await authService.setDisplayName(user, values.name);
       await authService.verifyEmail(user);
       goToMaker();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const onLogin = (event: React.MouseEvent<HTMLButtonElement>) => {

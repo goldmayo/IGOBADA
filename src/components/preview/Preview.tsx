@@ -17,16 +17,10 @@ const Preview = ({ cards, updateCard, deleteCard, imageUploader, phoneNumberForm
   const [indexlist, setIndexList] = useState<LetteringIndex>({});
 
   const getFirstLetter = (target: string): string => {
-    // if (target.length < 2) {
-    //   return "";
-    // }
     return target.slice(0, 1);
   };
 
   const destructureLetter = (kor: string) => {
-    // if (kor.length < 2) {
-    //   return "미분류";
-    // }
     const f = [
       "ㄱ",
       "ㄲ",

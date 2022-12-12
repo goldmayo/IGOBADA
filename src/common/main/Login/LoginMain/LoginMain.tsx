@@ -37,10 +37,7 @@ const LoginMain = ({ authService }: LoginProps) => {
           goToMaker();
         }
       })
-      .catch((error) => {
-        console.log(error.code);
-        console.log(error.message);
-      });
+      .catch((error) => {});
   };
 
   const goToMaker = () => {

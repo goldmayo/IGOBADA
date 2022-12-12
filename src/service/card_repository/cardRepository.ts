@@ -17,8 +17,6 @@ class CardRepository {
     return () => off(query);
   };
   saveCard = (userId: string, card: CardInfo) => {
-    console.log("card", card);
-
     set(ref(this.db, `${userId}/cards/${card.id}`), card);
   };
 

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from "./page/Login/Login";
-import Landing from "./page/Landing/Landing";
-import Maker from "./page/Main/Maker";
-import Register from "./page/Register/Register";
+// import Login from "./page/Login/Login";
+// import Landing from "./page/Landing/Landing";
+// import Maker from "./page/Main/Maker";
+// import Register from "./page/Register/Register";
 
 import Spinner from "./components/spinner/Spinner";
 
@@ -14,6 +14,12 @@ import CardRepository from "./service/card_repository/cardRepository";
 import { User } from "firebase/auth";
 
 import styles from "./app.module.css";
+
+const Login = lazy(() => import("./page/Login/Login"));
+const Landing = lazy(() => import("./page/Landing/Landing"));
+const Maker = lazy(() => import("./page/Main/Maker"));
+const Register = lazy(() => import("./page/Register/Register"));
+
 type AppProps = {
   authService: AuthService;
   assetUploader: AssetUploader;
@@ -27,7 +33,6 @@ function App({ authService, assetUploader, cardRepository }: AppProps) {
   useEffect(() => {
     authService.onAuthChange((user) => {
       if (user) {
-        console.log(user);
         setUserObj(user);
       }
       setInit(true);
@@ -36,7 +41,7 @@ function App({ authService, assetUploader, cardRepository }: AppProps) {
 
   return (
     <div className={styles.app}>
-      {init ? (
+      <Suspense fallback={<Spinner />}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Landing />} />
@@ -55,11 +60,13 @@ function App({ authService, assetUploader, cardRepository }: AppProps) {
             <Route path="/regist" element={<Register authService={authService} />} />
           </Routes>
         </BrowserRouter>
-      ) : (
-        <Spinner />
-      )}
+      </Suspense>
     </div>
   );
 }
 
 export default App;
+// {init ? (
+//   ) : (
+//     <Spinner />
+//   )}

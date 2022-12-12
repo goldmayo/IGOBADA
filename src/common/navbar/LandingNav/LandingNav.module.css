@@ -1,8 +1,18 @@
 .navbar {
   display: flex;
+  flex-direction: row;
 }
 .navbar a {
   font-size: 1.1rem;
   color: #fff;
   text-decoration: none;
+}
+.nav_list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 0;
+}
+.nav_list_item {
+  margin: 0 0.5rem;
 }

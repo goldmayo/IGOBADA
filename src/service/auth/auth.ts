@@ -23,15 +23,12 @@ class AuthService {
 
   login = async (providerName: Providers) => {
     if (!this.providers.hasOwnProperty(`${providerName}AuthProvider`)) {
-      console.log(`there is no ${providerName}AuthProvider`);
       return;
     }
     const authProvider = this.getProviderByName(this.providers, `${providerName}AuthProvider`);
     try {
       return await signInWithPopup(authService, authProvider);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   logout = () => {
@@ -50,12 +47,8 @@ class AuthService {
   };
   verifyEmail = async (user: User) => {
     try {
-      console.log(user);
       await sendEmailVerification(user);
-      console.log("done");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   onAuthChange = (onUserChanged: (user: User | null) => void) => {
     authService.onAuthStateChanged((user) => {

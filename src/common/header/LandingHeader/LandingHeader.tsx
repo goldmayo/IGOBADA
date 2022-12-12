@@ -8,8 +8,6 @@ interface LandingHeaderInterface {
 }
 
 const LandingHeader: React.FC<LandingHeaderInterface> = ({ isScrolled }) => {
-  console.log(isScrolled);
-
   return (
     <header className={isScrolled ? `${styles.header} ${styles.header_scrolled}` : styles.header}>
       <div className={styles.header_content_box}>
