@@ -36,10 +36,16 @@
   - 명함 추가
     <img src="/public/images/capture/add.png">
 
-  -
-
   - 명함 수정 삭제
     <img src="/public/images/capture/modify.png">
+
+## 적용기술
+
+- 최적화
+
+  - LCP(Largest Contentful Paint) : 동적 import를 적용하여 랜딩 페이지의 주요 콘텐츠 로드 시간을 약 60%개선
+    <img src="/public/images/capture/splitting_before.PNG">
+    <img src="/public/images/capture/splitting_after.PNG">
 
 ## 리소스 출처
 
