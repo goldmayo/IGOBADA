@@ -43,7 +43,7 @@
 
 - 최적화
 
-  - LCP(Largest Contentful Paint) : 동적 import를 적용하여 랜딩 페이지의 주요 콘텐츠 로드 시간을 약 60%개선
+  - LCP(Largest Contentful Paint) : 코드 분할을 적용하여 랜딩 페이지의 주요 콘텐츠 로드 시간을 약 60%개선
     <img src="/public/images/capture/splitting_before.PNG">
     <img src="/public/images/capture/splitting_after.PNG">
 
