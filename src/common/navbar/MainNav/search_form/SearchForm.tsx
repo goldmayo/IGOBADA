@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import styles from "./SearchForm.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { MdSearch, MdClear } from "react-icons/md";
 
 declare interface SearchFormInterface {
   inputRef: React.RefObject<HTMLInputElement>;
@@ -10,11 +9,15 @@ declare interface SearchFormInterface {
 }
 
 const SearchForm: React.FC<SearchFormInterface> = ({ inputRef, onChange }) => {
-  const clearQuery = useCallback(() => {
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
-  }, [inputRef]);
+  const clearQuery = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      if (inputRef.current) {
+        inputRef.current.value = "";
+      }
+    },
+    [inputRef]
+  );
 
   return (
     <div className={styles.searchForm}>
@@ -28,12 +31,8 @@ const SearchForm: React.FC<SearchFormInterface> = ({ inputRef, onChange }) => {
           name="search"
           onChange={onChange}
         />
-        <button className={styles.button}>
-          {inputRef.current?.value === "" ? (
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          ) : (
-            <FontAwesomeIcon icon={faX} id={styles.clear} onClick={clearQuery} />
-          )}
+        <button className={styles.button} onClick={clearQuery}>
+          {inputRef.current?.value === "" ? <MdSearch size={"1rem"} /> : <MdClear size={"1rem"} id={styles.clear} />}
         </button>
       </form>
     </div>

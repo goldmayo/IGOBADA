@@ -1,19 +1,17 @@
 import React from "react";
 import styles from "./LandingFooter.module.css";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
-
+import { FaGithub } from "react-icons/fa";
 const LandingFooter = () => {
   return (
     <footer className={styles.landing_footer}>
       <div className={styles.footer_content}>
         <div className={styles.logo_box}>
-          <Link to="/">
-            <img className={styles.logo} src="images/logo_transparent.svg" alt="logo" />
+          <Link className={styles.logo_link} to="/">
+            <img className={styles.logo} src="images/logo_transparent.svg" width={"120px"} height={"50px"} alt="logo" />
           </Link>
           <a href="https://github.com/goldmayo/Business-Card-Maker">
-            <FontAwesomeIcon className={styles.github} icon={faGithub} size="3x" inverse />
+            <FaGithub className={styles.github} size="3rem" color="white" />
           </a>
         </div>
         <div className={styles.copyright_box}>

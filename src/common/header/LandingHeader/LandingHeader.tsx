@@ -13,7 +13,13 @@ const LandingHeader: React.FC<LandingHeaderInterface> = ({ isScrolled }) => {
       <div className={styles.header_content_box}>
         <button className={styles.landing_link_button}>
           <Link to={"/"}>
-            <img className={styles.logo} src="images/logo_transparent.svg" alt="banner" />
+            <img
+              className={styles.logo}
+              src="images/logo_transparent.svg"
+              width={"120px"}
+              height={"50px"}
+              alt="banner"
+            />
           </Link>
         </button>
         <LandingNav />

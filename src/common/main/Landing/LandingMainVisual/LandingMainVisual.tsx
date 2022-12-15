@@ -15,8 +15,8 @@ const LandingMainVisual = () => {
         </button>
       </div>
       <div className={styles.decoration_box}>
-        <img className={styles.star_cloud} src="images/star.svg" alt="idcard" />
-        <img className={styles.user_card} src="images/user_card.svg" alt="idcard" />
+        <img className={styles.star_cloud} src="images/star.svg" alt="star cloud" />
+        <img className={styles.user_card} src="images/user_card.svg" alt="id card" />
         <img className={styles.user_research} src="images/user_research.svg" alt="research" />
       </div>
     </section>

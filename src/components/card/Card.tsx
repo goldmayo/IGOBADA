@@ -1,12 +1,15 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, lazy } from "react";
 import styles from "./Card.module.css";
 import { CardInfo } from "../../page/Main/MakerTypes.d";
-import { Modal } from "../modal/Modal";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { Modal } from "../modal/Modal";
+
+import { MdMoreVert } from "react-icons/md";
 import AssetUploader from "../../service/asset_uploader/AssetUploader";
 
 import TestEditForm from "../edit_form_test/TestEditForm";
+
+const Modal = lazy(() => import("../modal/Modal"));
+
 type CardProps = {
   card: CardInfo;
   imageUploader: AssetUploader;
@@ -61,16 +64,9 @@ const Card = ({ card, updateCard, deleteCard, imageUploader, phoneNumberFormatte
         {/* <p className={styles.message}>{message}</p> */}
       </div>
       <button className={styles.menu} onClick={openModal}>
-        <FontAwesomeIcon icon={faEllipsisVertical} />
+        <MdMoreVert size={"1.5rem"} />
       </button>
       <Modal openFlag={modalFlag} onClose={closeModal} headerTextContent={"명함 편집"}>
-        {/* <EditForm
-          card={card}
-          imageUploader={imageUploader}
-          updateCard={updateCard}
-          deleteCard={deleteCard}
-          phoneNumberFormatter={phoneNumberFormatter}
-        /> */}
         <TestEditForm
           card={card}
           imageUploader={imageUploader}

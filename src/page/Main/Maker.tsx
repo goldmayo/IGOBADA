@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useState, useRef, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { User } from "firebase/auth";
@@ -20,19 +20,21 @@ import AddButton from "../../common/navbar/MainNav/add_button/AddButton";
 import Greeting from "../../common/navbar/MainNav/greeting/Greeting";
 
 import Preview from "../../components/preview/Preview";
-import TestAddForm from "../../components/add_form_test/TestAddForm";
-import { Modal } from "../../components/modal/Modal";
 
 import styles from "./Maker.module.css";
+
+const Modal = lazy(() => import("../../components/modal/Modal"));
+const TestAddForm = lazy(() => import("../../components/add_form_test/TestAddForm"));
 
 type MakerProps = {
   userObj: User | null;
   authService: AuthService;
-  assetUploader: AssetUploader;
-  cardRepository: CardRepository;
 };
 
-const Maker = ({ userObj, authService, assetUploader, cardRepository }: MakerProps) => {
+const Maker = ({ userObj, authService }: MakerProps) => {
+  const assetUploader = AssetUploader.getAssetUploaderInstance();
+  const cardRepository = CardRepository.getCardRepositoryInstance();
+
   const navigate = useNavigate();
   const [userId, setUserId] = useState<string>("");
 

@@ -5,24 +5,25 @@ export interface ModalPropsInterface {
   openFlag: boolean;
   onClose: () => void;
   headerTextContent: string;
+  children: React.ReactNode;
 }
 
-export class Modal extends Component<ModalPropsInterface> {
+export default class Modal extends Component<ModalPropsInterface> {
   render() {
-    const { openFlag, onClose, headerTextContent } = this.props;
+    const { openFlag, onClose, headerTextContent, children } = this.props;
     return (
       <div className={openFlag ? [styles.modal, styles.activate].join(" ") : styles.modal}>
         {openFlag && (
           <>
             <div className={styles.bg} onClick={onClose}></div>
-            <section className={styles.container}> 
+            <section className={styles.container}>
               <header className={styles.header}>
                 {headerTextContent}
                 <button className={styles.closeButton} onClick={onClose}>
                   &times;
                 </button>
               </header>
-              <main className={styles.main}>{this.props.children}</main>
+              <main className={styles.main}>{children}</main>
               <footer>
                 <button className="close" onClick={onClose}>
                   완료

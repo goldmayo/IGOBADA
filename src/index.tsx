@@ -2,15 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.module.css";
 import App from "./app";
-import Factory from "./service/factory/factory";
+import AuthService from "./service/auth/auth";
 
-const authService = Factory.createProviders();
-const assetUploader = Factory.createAssetUploader();
-const cardRepository = Factory.createCardRepository();
+const authService = AuthService.getAuthServiceInstance();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App authService={authService} assetUploader={assetUploader} cardRepository={cardRepository} />
+    <App authService={authService} />
   </React.StrictMode>,
   document.getElementById("root")
 );

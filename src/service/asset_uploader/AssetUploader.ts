@@ -6,6 +6,15 @@ interface File extends Blob {
 }
 
 class AssetUploader {
+  private static AssetUploaderInstance: AssetUploader;
+
+  static getAssetUploaderInstance(): AssetUploader {
+    if (!AssetUploader.AssetUploaderInstance) {
+      AssetUploader.AssetUploaderInstance = new AssetUploader();
+    }
+    return AssetUploader.AssetUploaderInstance;
+  }
+
   upload = async (file: File) => {
     const url = `${process.env.REACT_APP_CLOUDNARY_BASE_URL}`;
     const formData = new FormData();

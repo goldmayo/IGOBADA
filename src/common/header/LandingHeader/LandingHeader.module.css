@@ -23,3 +23,7 @@
 .logo {
   width: 124px;
 }
+.landing_link_button {
+  background: transparent;
+  border: none;
+}

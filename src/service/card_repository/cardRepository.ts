@@ -1,13 +1,22 @@
-import { database } from "../firebase";
-import { Database, onValue, ref, set, remove, off } from "firebase/database";
+import { fireBaseApp } from "../firebase";
+import { getDatabase, Database, onValue, ref, set, remove, off } from "firebase/database";
 import { CardInfo, Deck } from "../../page/Main/MakerTypes.d";
 
 class CardRepository {
-  db: Database;
+  private static CardRepositoryInstance: CardRepository;
+  private db: Database;
 
   constructor() {
-    this.db = database;
+    this.db = getDatabase(fireBaseApp);
   }
+
+  static getCardRepositoryInstance(): CardRepository {
+    if (!CardRepository.CardRepositoryInstance) {
+      CardRepository.CardRepositoryInstance = new CardRepository();
+    }
+    return CardRepository.CardRepositoryInstance;
+  }
+
   syncCards = (userId: string, onUpdate: (cards: Deck) => void) => {
     const query = ref(this.db, `${userId}/cards`);
     onValue(query, (snapshot) => {

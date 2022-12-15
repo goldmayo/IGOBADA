@@ -2,6 +2,14 @@ import React from "react";
 import styles from "./LandingIntro.module.css";
 
 const LandingIntro = () => {
+  const handleHover = (e: React.MouseEvent<HTMLVideoElement>) => {
+    e.preventDefault();
+    if (e.currentTarget.hasAttribute("controls")) {
+      e.currentTarget.removeAttribute("controls");
+    } else {
+      e.currentTarget.setAttribute("controls", "controls");
+    }
+  };
   return (
     <section className={styles.main_intro}>
       <div className={styles.intro_content}>
@@ -10,7 +18,15 @@ const LandingIntro = () => {
           <p className={styles.intro_description}>명함을 만들고 등록하면 끝</p>
           <p className={styles.intro_description}>등록한 명함을 빠르게 찾을 수 있어요</p>
         </div>
-        <video className={styles.dummy_video} src="media/demo.mp4" autoPlay muted loop></video>
+        <video
+          className={styles.dummy_video}
+          src="media/demo.mp4"
+          muted
+          preload="metadata"
+          poster="media/igobada_main_poster.PNG"
+          onMouseEnter={handleHover}
+          onMouseLeave={handleHover}
+        />
       </div>
     </section>
   );
