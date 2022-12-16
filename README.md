@@ -39,13 +39,20 @@
   - 명함 수정 삭제
     <img src="/public/images/capture/modify.png">
 
-## 적용기술
+## 최적화
 
-- 최적화
+- 개발환경과 배포환경을 lighthouse로 성능 최적화를 진행하여 Perfomance를 87에서 92로 개선
+  <img src="/public/images/capture/before opt.PNG">
+  <img src="/public/images/capture/after_opt.PNG">
+- 코드 분할을 적용하여 랜딩 페이지의 주요 콘텐츠 로드 시간을 약 60%개선.
+  <img src="/public/images/capture/splitting_after.PNG">
+  <img src="/public/images/capture/splitting_before.PNG">
 
-  - LCP(Largest Contentful Paint) : 코드 분할을 적용하여 랜딩 페이지의 주요 콘텐츠 로드 시간을 약 60%개선
-    <img src="/public/images/capture/splitting_before.PNG">
-    <img src="/public/images/capture/splitting_after.PNG">
+- 기존의 index에서 생성한 Firebase 유틸리티 클래스들을 랜딩 페이지에서 필요한 인증 클래스를 제외하고 필요한 페이지 컴포넌트에서 사용할 수 있도록 싱글톤 패턴을 적용하여 리팩토링.
+
+- 렌더링 성능에 영향을 미치는 사용하지 않는 CSS를 purgecss를 사용하여 CSS 다운로드 용량을 줄임.
+
+- video 요소에 poster속성과 preload속성을 추가
 
 ## 리소스 출처
 

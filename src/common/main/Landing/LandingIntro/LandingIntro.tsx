@@ -20,13 +20,14 @@ const LandingIntro = () => {
         </div>
         <video
           className={styles.dummy_video}
-          src="media/demo.mp4"
           muted
-          preload="metadata"
-          poster="media/igobada_main_poster.PNG"
+          preload="none"
+          poster="/images/igobada_main_poster.PNG"
           onMouseEnter={handleHover}
           onMouseLeave={handleHover}
-        />
+        >
+          <source src="/media/demo.mp4" type="video/mp4" />
+        </video>
       </div>
     </section>
   );
