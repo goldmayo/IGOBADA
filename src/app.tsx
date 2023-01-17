@@ -1,10 +1,11 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Spinner from "./components/spinner/Spinner";
 
 import AuthService from "./service/auth/auth";
-import { User } from "firebase/auth";
+
+import { useDispatch } from "react-redux";
+import { userActions } from "./store/slice/user";
 
 import styles from "./app.module.css";
 
@@ -18,17 +19,18 @@ type AppProps = {
 };
 
 function App({ authService }: AppProps) {
-  const [userObj, setUserObj] = useState<User | null>(null);
   const [init, setInit] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     authService.onAuthChange((user) => {
       if (user) {
-        setUserObj(user);
+        dispatch(userActions.setUser(user));
       }
       setInit(true);
     });
-  }, [authService]);
+    return setInit(false);
+  }, [authService, dispatch]);
 
   return (
     <div className={styles.app}>
@@ -38,7 +40,7 @@ function App({ authService }: AppProps) {
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login authService={authService} />} />
-              <Route path="/main" element={<Maker userObj={userObj} authService={authService} />} />
+              <Route path="/main" element={<Maker authService={authService} />} />
               <Route path="/regist" element={<Register authService={authService} />} />
             </Routes>
           )}

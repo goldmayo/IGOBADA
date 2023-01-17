@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { User } from "firebase/auth";
 import { CardInfo, Deck } from "./MakerTypes.d";
 
 import AuthService from "../../service/auth/auth";
@@ -22,21 +21,22 @@ import Greeting from "../../common/navbar/MainNav/greeting/Greeting";
 import Preview from "../../components/preview/Preview";
 
 import styles from "./Maker.module.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const Modal = lazy(() => import("../../components/modal/Modal"));
 const TestAddForm = lazy(() => import("../../components/add_form_test/TestAddForm"));
 
 type MakerProps = {
-  userObj: User | null;
   authService: AuthService;
 };
 
-const Maker = ({ userObj, authService }: MakerProps) => {
+const Maker = ({ authService }: MakerProps) => {
   const assetUploader = AssetUploader.getAssetUploaderInstance();
   const cardRepository = CardRepository.getCardRepositoryInstance();
-
   const navigate = useNavigate();
-  const [userId, setUserId] = useState<string>("");
+
+  const user = useSelector((state: RootState) => state.userSlice.userObj);
 
   const [cards, setCards] = useState<Deck>({});
   const [modalFlag, setModalFlag] = useState<boolean>(false);
@@ -93,26 +93,28 @@ const Maker = ({ userObj, authService }: MakerProps) => {
 
   const createUpdateCard = useCallback(
     (card: CardInfo) => {
+      if (!user) return;
       setCards((cards) => {
         const updatedDeck = { ...cards };
         updatedDeck[card.id] = card;
         return updatedDeck;
       });
-      cardRepository.saveCard(userId, card);
+      cardRepository.saveCard(user.uid, card);
     },
-    [cardRepository, userId]
+    [cardRepository, user]
   );
 
   const deleteCard = useCallback(
     (card: CardInfo) => {
+      if (!user) return;
       setCards((cards) => {
         const updatedDeck = { ...cards };
         delete updatedDeck[card.id];
         return updatedDeck;
       });
-      cardRepository.removeCard(userId, card);
+      cardRepository.removeCard(user.uid, card);
     },
-    [cardRepository, userId]
+    [cardRepository, user]
   );
 
   const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,12 +132,10 @@ const Maker = ({ userObj, authService }: MakerProps) => {
   };
 
   useEffect(() => {
-    if (!userObj) {
-      return;
+    if (!user) {
+      return navigate("/login");
     }
-    setUserId(userObj.uid);
-
-    const stopSync = cardRepository.syncCards(userObj.uid, (cards: Deck) => {
+    const stopSync = cardRepository.syncCards(user.uid, (cards: Deck) => {
       const sortedCards = sortByName(cards);
       setCards(sortedCards);
       setFilteredCard(sortedCards);
@@ -143,19 +143,19 @@ const Maker = ({ userObj, authService }: MakerProps) => {
     return () => {
       stopSync();
     };
-  }, [userObj, cardRepository, sortByName]);
+  }, [user, cardRepository, sortByName, navigate]);
 
   return (
     <MakerMainContainer>
       <MainHeader onLogout={onLogout}>
         <SearchForm inputRef={searchRef} onChange={handleFilter} />
       </MainHeader>
-      {!userObj?.emailVerified && (
+      {!user?.emailVerified && (
         <VerifyMessage message={"등록하신 메일로 인증 메세지를 보냈습니다. 메일을 인증 해주세요"} />
       )}
       <div className={styles.container}>
         <MainNavbar>
-          {userObj && <Greeting userName={userObj?.displayName} />}
+          {user && <Greeting />}
           <AddButton openModal={openModal} />
         </MainNavbar>
         <Preview
